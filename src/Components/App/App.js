@@ -1,5 +1,3 @@
-const redirectUri = 'http://localhost:3000/';
-const clientId = 'ffc99a15c9364607927ed84cf973030d';
 import React from 'react';
 import './App.css';
 import SearchBar from '../SearchBar/SearchBar';
@@ -13,14 +11,14 @@ class App extends React.Component {
       this.state = {
         searchResults : [],
         playlistName  : "New Playlist",  
-        playlistTracks: "Playlist Tracks", /// array?
+        playlistTracks: [],
         playlistId: null
     };
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
-    this.searchResults = this.searchResults.bind(this);
+    this.search = this.search.bind(this);
   }
 
   search(term) {
@@ -84,3 +82,4 @@ class App extends React.Component {
   }
 }
 
+export default App;
