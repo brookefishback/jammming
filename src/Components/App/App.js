@@ -1,3 +1,5 @@
+const redirectUri = 'http://localhost:3000/';
+const clientId = 'ffc99a15c9364607927ed84cf973030d';
 import React from 'react';
 import './App.css';
 import SearchBar from '../SearchBar/SearchBar';
