@@ -4,15 +4,20 @@ import TrackList from './TrackList'
 
 
 class SearchResults extends React.Component {
-    render() {
-        return (
-            <div className='Results'>
-                <h2>Results</h2>
-                <TrackList action='+' onClick={this.props.addTrack} tracks={this.props.tracks} />
-            </div>
-        );
+    constructor(props){
+      super(props);
     }
-}
-
-export default SearchResults;
-
+    render() {
+      return (
+        <div className="SearchResults">
+          <h2>Results</h2>
+          <TrackList
+            isRemoval={false}
+            onAdd={this.props.onAdd}
+            tracks={this.props.searchResults} />
+        </div>
+      );
+    }
+  }
+  
+  export default SearchResults;
