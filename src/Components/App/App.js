@@ -18,14 +18,14 @@ class App extends React.Component {
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
-    this.search = this.search.bind(this);
+    this.searchResults = this.searchResults.bind(this);
   }
 
-  searchSpotify(term) {
-    Spotify.search(term).then(
-      results => {
-        this.setState({
-          results: results
+  search(term) {
+    Spotify.search(term)
+        .then(searchResults => 
+        {this.setState({
+        searchResults: searchResults
         });
       }
     );
