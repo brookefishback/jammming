@@ -17,7 +17,7 @@ const Spotify = {
       window.setTimeout(() => accessToken = '', expiresIn * 1000);
       window.history.pushState('Access Token', null, '/');
     }else{
-       window.location = `https://accounts.spotify.com/authorize?response_type=token&scope=playlist-modify-public&client_id=${clientId}&redirect_uri=${redirectUri}`;;
+       window.location.href = `https://accounts.spotify.com/authorize?response_type=token&scope=playlist-modify-public&client_id=${clientId}&redirect_uri=${redirectUri}`;;
   }
 },
 
@@ -47,12 +47,12 @@ search(term) {
   savePlaylist(name, trackURIs) {
     if(!name || !trackURIs) return;
 
-      const currentUser = 'https://api.spotify.com/v1/me';
-      const headers = {
-        Authorization: `Bearer ${accessToken}`
-      };
-      let userId = undefined;
-      let playlistId = undefined;
+    const currentUser = 'https://api.spotify.com/v1/me';
+    const headers = {
+    Authorization: `Bearer ${accessToken}`
+    };
+    let userId = undefined;
+    let playlistId = undefined;
 
       fetch(currentUser, {headers: headers
       })
