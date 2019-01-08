@@ -1,7 +1,9 @@
-const redirectUri = 'http://localhost:3000/';
-const clientId = 'ffc99a15c9364607927ed84cf973030d';
 let accessToken = undefined;
 let expiresIn = undefined;
+const redirectUri = 'http://localhost:3000/';
+const clientId = 'ffc99a15c9364607927ed84cf973030d';
+const spotifyUrl = `https://accounts.spotify.com/authorize?response_type=token&scope=playlist-modify-public&client_id=${clientId}&redirect_uri=${redirectUri}`;
+
 
 const Spotify = {
     getAccessToken() {
@@ -17,14 +19,13 @@ const Spotify = {
       window.setTimeout(() => accessToken = '', expiresIn * 1000);
       window.history.pushState('Access Token', null, '/');
     }else{
-       window.location.href = `https://accounts.spotify.com/authorize?response_type=token&scope=playlist-modify-public&client_id=${clientId}&redirect_uri=${redirectUri}`;;
+       window.location = spotifyUrl;
   }
 },
 
 search(term) {
     const searchUrl = `https://api.spotify.com/v1/search?type=track&q=${term.replace(' ', '%20')}`;
     return fetch(searchUrl, {
-        method: 'GET',
         headers: {
           Authorization: `Bearer ${accessToken}`
         }
@@ -47,23 +48,24 @@ search(term) {
   savePlaylist(name, trackURIs) {
     if(!name || !trackURIs) return;
 
-    const currentUser = 'https://api.spotify.com/v1/me';
-    const headers = {
-    Authorization: `Bearer ${accessToken}`
-    };
-    let userId = undefined;
-    let playlistId = undefined;
+      const currentUser = 'https://api.spotify.com/v1/me';
+      const headers = {
+        Authorization: `Bearer ${accessToken}`
+      };
+      let userId = undefined;
+      let playlistId = undefined;
 
-      fetch(currentUser, {headers: headers
+      fetch(currentUser, {
+        headers: headers
       })
       .then(response => response.json())
       .then(jsonResponse => userId = jsonResponse.id)
       .then(() => {
-        const createPlayListURL = `https://api.spotify.com/v1/v1/users/${userId}/playlists`;
+        const createPlayListURL = `https://api.spotify.com/v1/users/${userId}/playlists`;
         fetch(createPlayListURL, {
           method: 'POST',
           headers: headers,
-          body: JSON.stringif({
+          body: JSON.stringify({
             name: name
           })
         })
@@ -74,7 +76,7 @@ search(term) {
           fetch(addPlayListTracksUrl , {
             method: 'POST',
             headers: headers,
-            body: JSON.stringif({
+            body: JSON.stringify({
               uris: trackURIs
           })
         });
