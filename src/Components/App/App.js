@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
 import Spotify from '../../util/Spotify';
+import './App.css';
 
 Spotify.getAccessToken();
 
@@ -27,8 +27,8 @@ class App extends Component {
       return;
     }else{
       let currentPlaylist = this.state.playlistTracks.slice();
-      let currentSearchResults = this.state.searchResults.slice();
-      currentPlaylist.push(track);
+      let currentSearchResults = this.state.searchResults.slice();currentPlaylist.push(track);
+      
       for(let i = 0; i < currentSearchResults.length; i++){
         if(currentSearchResults[i] === track){
           currentSearchResults.splice(i, 1)
@@ -38,14 +38,11 @@ class App extends Component {
         playlistTracks: currentPlaylist,
         searchResults: currentSearchResults
       });
-
     }
   }
 
-
   removeTrack(track){
     const removal = this.state.playlistTracks.filter(savedTrack => savedTrack.id !== track.id);
-    //Add logic for adding tracks back to the searchresults
     let currentSearchResults = this.state.searchResults.slice();
     if(currentSearchResults.find(savedTrack => savedTrack.id !== track.id) || currentSearchResults.length === 0){
       currentSearchResults.push(track);
@@ -60,7 +57,6 @@ class App extends Component {
    this.setState({
       playlistName: name
     });
-
     console.log(this.state.playlistName);
  }
 
@@ -75,18 +71,14 @@ class App extends Component {
     },
        () => {this.updatePlaylistName('New Playlist')}
      );
-
  }
 
   search(term){
-
     Spotify.search(term)
     .then(searchResults => this.setState({
       searchResults: searchResults
     }));
   }
-
-
 
   render() {
     return (
@@ -99,10 +91,6 @@ class App extends Component {
             <Playlist onSave={this.savePlaylist} onNameChange={this.updatePlaylistName} onRemove={this.removeTrack} playlistTracks={this.state.playlistTracks} playlistName={this.state.playlistName}/>
           </div>
         </div>
-        <div>
-
-        </div>
-
       </div>
     );
   }

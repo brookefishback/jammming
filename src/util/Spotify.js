@@ -83,7 +83,6 @@ search(term) {
       })
     })
   }
-
 }
 
 export default Spotify;
